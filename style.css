@@ -1,0 +1,247 @@
+/* 証券口座診断 — 骨格スタイル。ブログ埋め込み前提: 白背景・単色アクセント・システムフォント */
+:root {
+  --accent: #0f766e;
+  --accent-weak: #e6f2f1;
+  --ink: #1f2933;
+  --ink-weak: #616e7c;
+  --line: #d9e2ec;
+  --warn-bg: #fff8e6;
+  --radius: 10px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family:
+    "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Noto Sans JP", "Yu Gothic",
+    sans-serif;
+  color: var(--ink);
+  background: #fff;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+.shindan {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 16px 16px 32px;
+}
+
+.pr-label {
+  font-size: 12px;
+  color: var(--ink-weak);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  display: inline-block;
+  padding: 2px 8px;
+  margin-bottom: 12px;
+}
+
+.head h1 {
+  font-size: 22px;
+  margin-bottom: 4px;
+}
+.head .lead {
+  font-size: 14px;
+  color: var(--ink-weak);
+  margin-bottom: 16px;
+}
+
+.progress {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+.progress .dot {
+  height: 6px;
+  flex: 1;
+  border-radius: 3px;
+  background: var(--line);
+}
+.progress .dot.done {
+  background: var(--accent);
+}
+
+.q-title {
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.options {
+  display: grid;
+  gap: 10px;
+}
+.opt {
+  display: block;
+  width: 100%;
+  text-align: left;
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius);
+  background: #fff;
+  padding: 12px 14px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink);
+  transition:
+    border-color 0.15s,
+    background 0.15s;
+}
+.opt:hover,
+.opt:focus-visible {
+  border-color: var(--accent);
+  background: var(--accent-weak);
+  outline: none;
+}
+.opt .note {
+  display: block;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--ink-weak);
+  margin-top: 2px;
+}
+
+.age-row {
+  margin-top: 14px;
+  font-size: 13px;
+  color: var(--ink-weak);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.age-row input {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--accent);
+}
+
+.back {
+  margin-top: 14px;
+  background: none;
+  border: none;
+  color: var(--ink-weak);
+  font-size: 13px;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+/* 結果画面 */
+.result-label {
+  font-size: 13px;
+  color: var(--ink-weak);
+  margin-bottom: 6px;
+}
+.winner-card {
+  border: 2px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 12px;
+  background: var(--accent-weak);
+}
+.winner-card h2 {
+  font-size: 19px;
+  margin-bottom: 6px;
+}
+.winner-card .badge {
+  font-size: 11px;
+  color: #fff;
+  background: var(--accent);
+  border-radius: 3px;
+  padding: 1px 6px;
+  vertical-align: 2px;
+  margin-left: 6px;
+}
+.winner-card .fit {
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+.winner-card .unfit {
+  font-size: 13px;
+  color: var(--ink-weak);
+}
+.winner-card .cta {
+  display: inline-block;
+  margin-top: 10px;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 6px;
+  padding: 10px 18px;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+}
+.winner-card .cta-note {
+  font-size: 11px;
+  color: var(--ink-weak);
+  margin-top: 4px;
+}
+
+.tie-note {
+  font-size: 13px;
+  background: var(--warn-bg);
+  border-radius: 6px;
+  padding: 8px 12px;
+  margin-bottom: 12px;
+}
+
+.others {
+  margin-top: 16px;
+}
+.others h3 {
+  font-size: 14px;
+  color: var(--ink-weak);
+  margin-bottom: 8px;
+}
+.others table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.others td {
+  border-top: 1px solid var(--line);
+  padding: 6px 4px;
+}
+.others td.score {
+  text-align: right;
+  color: var(--ink-weak);
+  white-space: nowrap;
+}
+
+.excluded {
+  margin-top: 12px;
+  font-size: 12px;
+  color: var(--ink-weak);
+}
+.excluded li {
+  margin-left: 1.2em;
+}
+
+.restart {
+  margin-top: 18px;
+  background: #fff;
+  border: 1.5px solid var(--line);
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-size: 13px;
+  cursor: pointer;
+  color: var(--ink);
+}
+.restart:hover {
+  border-color: var(--accent);
+}
+
+.compliance {
+  margin-top: 28px;
+  border-top: 1px solid var(--line);
+  padding-top: 12px;
+}
+.compliance p {
+  font-size: 11px;
+  color: var(--ink-weak);
+  margin-bottom: 6px;
+}

@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <!-- 骨格段階。公開判断時に外す -->
+    <title>証券口座かんたん診断（3問）</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="shindan" id="shindan">
+      <p class="pr-label" id="pr-label">
+        PR — 本ページには広告（アフィリエイトリンク）を含みます
+      </p>
+
+      <header class="head">
+        <h1>証券口座かんたん診断</h1>
+        <p class="lead">
+          3つの質問に答えると、あなたの使い方に合いそうなネット証券がわかります。
+        </p>
+      </header>
+
+      <nav class="progress" id="progress" aria-label="進行状況"></nav>
+
+      <section id="stage" aria-live="polite"><!-- 質問/結果を描画 --></section>
+
+      <footer class="compliance" id="compliance">
+        <!-- コンプラ文面を描画 -->
+      </footer>
+    </main>
+
+    <script type="module" src="app.js"></script>
+  </body>
+</html>
