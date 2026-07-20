@@ -4,6 +4,7 @@ import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 import { diagnose } from "../logic.js";
+import { COMPANIES, hasAffiliateLink } from "../data.js";
 
 const __dir = dirname(fileURLToPath(import.meta.url));
 let pass = 0;
@@ -68,6 +69,25 @@ for (const a of audits) {
   const r = diagnose({ q1: "ALL", q2: "NONE", q3: "SUPPORT", age25: true });
   assert(r.winners.length === 1 && r.winners[0] === "MATSUI",
     `age25 タイブレーク: 期待 [MATSUI] 実際 [${r.winners.join(",")}]`);
+}
+
+// ---- PR 表示の出し分け: 実態と表示が食い違わないこと ----
+// 2026-07-20: index.html に PR 文面が直書きされており、アフィリエイトリンクが
+// 1本も無い状態でも「本ページには広告を含みます」と表示されていた（実害・公開直前に発見）。
+{
+  assert(hasAffiliateLink({ a: { cta: { type: "a8-active" } } }) === true,
+    "a8-active が居るのに PR 表示が出ない");
+  assert(hasAffiliateLink({ a: { cta: { type: "official" } },
+                            b: { cta: { type: "a8-pending" } } }) === false,
+    "アフィリリンクが無いのに PR 表示が出てしまう");
+  assert(hasAffiliateLink(COMPANIES) === Object.values(COMPANIES)
+    .some((c) => c.cta.type === "a8-active"),
+    "現行データに対する hasAffiliateLink の判定が COMPANIES と一致しない");
+
+  // 静的検査: PR 文面を index.html に直書きしない（実態と乖離する原因だったため）
+  const html = readFileSync(join(__dir, "..", "index.html"), "utf8");
+  assert(!/本ページには広告/.test(html),
+    "index.html に PR 文面が直書きされている（app.js から実態に応じて入れること）");
 }
 
 // ---- 報酬非参照の静的検査: logic.js が cta/報酬フィールドに触れていない ----

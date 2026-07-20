@@ -96,7 +96,11 @@ export const COMPANIES = {
     fit: "商品を最も幅広く1社で揃えたい人、三井住友カード/Vポイントを使う人、IPOにも挑戦したい人",
     unfit:
       "アプリが商品別に分かれる点や、電子交付・外貨決済など初期設定の手間を避けたい人",
-    cta: { type: "official", label: "公式サイトで詳細を見る", url: "https://www.sbisec.co.jp/" },
+    cta: {
+      type: "official",
+      label: "公式サイトで詳細を見る",
+      url: "https://www.sbisec.co.jp/",
+    },
   },
   RAKUTEN: {
     name: "楽天証券",
@@ -107,7 +111,11 @@ export const COMPANIES = {
     fit: "楽天のサービスをよく使う人、1株をリアルタイムで機動的に売買したい人、日経を無料で読みたい人",
     unfit:
       "楽天サービスを使わず、手数料無料コースの仕組み（SOR注文への同意）に抵抗がある人",
-    cta: { type: "official", label: "公式サイトで詳細を見る", url: "https://www.rakuten-sec.co.jp/" },
+    cta: {
+      type: "official",
+      label: "公式サイトで詳細を見る",
+      url: "https://www.rakuten-sec.co.jp/",
+    },
   },
   MONEX: {
     name: "マネックス証券",
@@ -118,7 +126,11 @@ export const COMPANIES = {
     fit: "米国株を本気でやりたい人（分析ツール・円貨で為替手数料0銭）、ドコモ/dポイント圏の人",
     unfit:
       "国内株の売買が多い人（国内株手数料が有料）、投資信託の品揃えを最重視する人",
-    cta: { type: "official", label: "公式サイトで詳細を見る", url: "https://www.monex.co.jp/" },
+    cta: {
+      type: "official",
+      label: "公式サイトで詳細を見る",
+      url: "https://www.monex.co.jp/",
+    },
   },
   MATSUI: {
     name: "松井証券",
@@ -128,7 +140,11 @@ export const COMPANIES = {
     usCost: 1, // 円貨・外貨とも為替0銭
     fit: "電話などで相談したい安心重視の初心者、1日50万円以下の少額国内取引の人、25歳以下の人",
     unfit: "1株ずつ買い増したい人（買付非対応）、1日50万円を超える取引が多い人",
-    cta: { type: "official", label: "公式サイトで詳細を見る", url: "https://www.matsui.co.jp/" },
+    cta: {
+      type: "official",
+      label: "公式サイトで詳細を見る",
+      url: "https://www.matsui.co.jp/",
+    },
   },
   AU: {
     name: "三菱UFJ eスマート証券",
@@ -139,7 +155,11 @@ export const COMPANIES = {
     fit: "au/Pontaを使う人、メガバンク系の信頼・サポートを重視する人、1株から始めたい人",
     unfit:
       "米国株を幅広く売買したい人（取扱銘柄が少なめ）、au/Ponta圏を使わない人",
-    cta: { type: "official", label: "公式サイトで詳細を見る", url: "https://kabu.com/" },
+    cta: {
+      type: "official",
+      label: "公式サイトで詳細を見る",
+      url: "https://kabu.com/",
+    },
   },
   DMM: {
     name: "DMM 株",
@@ -150,7 +170,11 @@ export const COMPANIES = {
     fit: "投資信託は使わず、米国株・国内株をシンプルなアプリで完結したい人、IPOの完全平等抽選を狙う人",
     unfit:
       "つみたてNISA・投資信託で積み立てたい人、1株から少額分散したい人（いずれも非対応）",
-    cta: { type: "official", label: "公式サイトで詳細を見る", url: "https://kabu.dmm.com/" },
+    cta: {
+      type: "official",
+      label: "公式サイトで詳細を見る",
+      url: "https://kabu.dmm.com/",
+    },
   },
 };
 
@@ -173,6 +197,13 @@ export const EXCLUSION_REASONS = {
 // §2-3 タイブレーク2: マトリクスで明文化された優先ペアのみ（それ以外の同点は両論併記）
 // 現時点で定義済み: US ルートで マネックス > 松井（商品フィット: 銘柄数5,000超+分析ツール）
 export const TIEBREAK_PAIRS = { US: [["MONEX", "MATSUI"]] };
+
+// PR 表示の出し分け用。アフィリエイトリンクが 1 本も無い状態で
+// 「本ページには広告を含みます」と出すと表示が事実と食い違うため、
+// 実際に a8-active の会社が居るときだけ出す。
+export function hasAffiliateLink(companies = COMPANIES) {
+  return Object.values(companies).some((c) => c.cta.type === "a8-active");
+}
 
 // §0 コンプラ文面（下書き転記）
 export const COMPLIANCE = {

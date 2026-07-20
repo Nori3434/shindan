@@ -1,5 +1,5 @@
 // UI 配線 — 質問フロー・結果描画。ロジックは logic.js、データ/文言は data.js に分離。
-import { QUESTIONS, COMPANIES, COMPLIANCE } from "./data.js";
+import { QUESTIONS, COMPANIES, COMPLIANCE, hasAffiliateLink } from "./data.js";
 import { diagnose } from "./logic.js";
 
 const stage = document.getElementById("stage");
@@ -55,6 +55,12 @@ function renderQuestion() {
   });
 }
 
+// rel も実態に合わせる。素の公式URLに sponsored を付けると
+// バッジ「広告ではありません」と矛盾する。
+function ctaRel(c) {
+  return c.cta.type === "a8-active" ? "nofollow sponsored" : "nofollow";
+}
+
 function winnerCard(id) {
   const c = COMPANIES[id];
   const badge = CTA_LABEL[c.cta.type];
@@ -63,7 +69,7 @@ function winnerCard(id) {
       <h2>${c.name}${badge ? `<span class="badge">${badge}</span>` : ""}</h2>
       <p class="fit">向いている人: ${c.fit}</p>
       <p class="unfit">向いていない可能性: ${c.unfit}</p>
-      <a class="cta" href="${c.cta.url}" rel="nofollow sponsored">${c.cta.label}</a>
+      <a class="cta" href="${c.cta.url}" rel="${ctaRel(c)}">${c.cta.label}</a>
       <p class="cta-note">最新の手数料・条件は必ず公式サイトでご確認ください</p>
     </article>`;
 }
@@ -109,6 +115,16 @@ function renderResult() {
   postHeight();
 }
 
+// PR 表示は実態に合わせる。アフィリエイトリンクが 1 本も無いのに「広告を含む」と
+// 出したままにすると、表示と中身が食い違う（data.js で type を戻し忘れた場合の保険）。
+function renderPrLabel() {
+  const el = document.getElementById("pr-label");
+  if (!el) return;
+  const hasAd = hasAffiliateLink(COMPANIES);
+  el.textContent = hasAd ? `PR — ${COMPLIANCE.prHeader}` : "";
+  el.hidden = !hasAd;
+}
+
 function renderCompliance() {
   document.getElementById("compliance").innerHTML = [
     COMPLIANCE.author,
@@ -136,6 +152,7 @@ function render() {
   postHeight();
 }
 
+renderPrLabel();
 renderCompliance();
 render();
 window.addEventListener("load", postHeight);
