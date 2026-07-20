@@ -146,6 +146,11 @@ body {
 .winner-card h2 {
   font-size: 19px;
   margin-bottom: 6px;
+  /* 会社名とバッジは折り返し位置を自由にし、バッジ自体は分割させない */
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
 }
 .winner-card .badge {
   font-size: 11px;
@@ -153,8 +158,11 @@ body {
   background: var(--accent);
   border-radius: 3px;
   padding: 1px 6px;
-  vertical-align: 2px;
-  margin-left: 6px;
+  /* 「広告ではありません」のような長いバッジが「せん」だけ次行に落ちるのを防ぐ。
+     flex 子なので伸縮を止めて内容ぴったりの幅にする */
+  white-space: nowrap;
+  flex: 0 0 auto;
+  align-self: center;
 }
 .winner-card .fit {
   font-size: 14px;
